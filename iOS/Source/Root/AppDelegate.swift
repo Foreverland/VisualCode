@@ -3,12 +3,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder {
     var window: UIWindow?
-
-    lazy var fetcher: Fetcher = {
-        let fetcher = Fetcher(baseURL: "https://server.com", modelName: "DataModel")
-
-        return fetcher
-    }()
 }
 
 extension AppDelegate: UIApplicationDelegate {
@@ -16,7 +10,9 @@ extension AppDelegate: UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         guard let window = self.window else { fatalError("Window not found") }
 
-        window.rootViewController = RootController(fetcher: self.fetcher)
+        let mainController = MainController()
+        let navigationController = UINavigationController(rootViewController: mainController)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
         return true
