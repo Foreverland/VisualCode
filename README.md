@@ -1,7 +1,6 @@
-## VisualCode
+# VisualCode
+**_A XML-less Interface Builder Alternative_**
 
-## A XML-less Interface Builder Alternative
-
-### Running the project
+## Running the project
 
 - Open `Project.xcodeproj` and run
