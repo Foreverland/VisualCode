@@ -68,10 +68,7 @@ class MainController: UIViewController {
         "    return view\n" +
         "}()"
 
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        view.backgroundColor = .red
-        view.tag = 1
-        self.canvasController.canvasView.addSubview(view)
+        self.canvasController.addView()
     }
 }
 
