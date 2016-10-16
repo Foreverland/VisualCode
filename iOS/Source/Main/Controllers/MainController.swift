@@ -3,6 +3,7 @@ import UIKit
 class MainController: UIViewController {
     lazy var editorController: EditorController = {
         let controller = EditorController()
+        controller.delegate = self
 
         return controller
     }()
@@ -27,6 +28,9 @@ class MainController: UIViewController {
         self.add(self.editorController)
         self.add(self.controlsController)
         self.add(self.canvasController)
+
+        self.automaticallyAdjustsScrollViewInsets = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addLayer))
     }
 
     override func viewDidLayoutSubviews() {
@@ -53,5 +57,27 @@ class MainController: UIViewController {
             return CGRect(x: x, y: 0, width: width, height: parentHeight)
         }
         self.canvasController.view.frame = canvasFrame
+    }
+
+    func addLayer() {
+        self.editorController.textView.text = "" +
+        "lazy var view: UIView {\n" +
+        "    let view = UIView()\n" +
+        "    view.backgroundColor = .red\n" +
+        "\n" +
+        "    return view\n" +
+        "}()"
+
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        view.backgroundColor = .red
+        view.tag = 1
+        self.canvasController.canvasView.addSubview(view)
+    }
+}
+
+extension MainController: EditorControllerDelegate {
+    func editorControllerDidChangeToYellow(_ editorController: EditorController) {
+        let view = self.canvasController.canvasView.viewWithTag(1)
+        view?.backgroundColor = .yellow
     }
 }
